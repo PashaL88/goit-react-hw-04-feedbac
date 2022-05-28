@@ -6,27 +6,17 @@ import Notification from './Notification';
 
 const options = ['good', 'neutral', 'bad'];
 function App() {
-  const [good, SetGood] = useState(0);
-  const [bad, SetBad] = useState(0);
-  const [neutral, SetNeutral] = useState(0);
 
-  const handleClick = event => {
-    const name = event;
-    console.log(name);
-    switch (name) {
-      case 'good':
-        SetGood(item => item + 1);
-        break;
-      case 'bad':
-        SetBad(item => item + 1);
-        break;
-      case 'neutral':
-        SetNeutral(item => item + 1);
-        break;
+  const [feedback, setFeedback] = useState({ good: 0, neutral: 0, bad: 0 });
+  const { good, neutral, bad } = feedback;
 
-      default:
-        return;
-    }
+  const handleClick = propertyName => {
+    setFeedback(prevFeedback => {
+      return {
+        ...feedback,
+        [propertyName]: prevFeedback[propertyName] + 1,
+      };
+    });
   };
 
   const countTotalFeedback = () => {
